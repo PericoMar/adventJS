@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        function manufacture(gifts, materials) {
+            // Code here
+            let canManufacture
+            let giftsManufactured = [];
+            gifts.forEach(gift => {
+                canManufacture = true;
+                for (let char of gift) {
+                    if (!materials.includes(char)) {
+                        canManufacture = false;
+                        break;
+                    }
+                }
+                if (canManufacture) {
+                    giftsManufactured.push(gift);
+                }
+            });
+            return giftsManufactured;
+        }
+
+        // function manufacture(gifts, materials) {
+        //     return gifts.filter(gift => {
+        //         for (let char of gift) {
+        //             if (!materials.includes(char)) {
+        //                 return false;
+        //             }
+        //         }
+        //         return true;
+        //     });
+        // }
+        const gifts1 = ['tren', 'oso', 'pelota']
+        const materials1 = 'tronesa'
+
+        console.log(manufacture(gifts1, materials1)) // ["tren", "oso"]
+        // 'tren' SÍ porque sus letras están en 'tronesa'
+        // 'oso' SÍ porque sus letras están en 'tronesa'
+        // 'pelota' NO porque sus letras NO están en 'tronesa'
+
+        const gifts2 = ['juego', 'puzzle']
+        const materials2 = 'jlepuz'
+
+        console.log(manufacture(gifts2, materials2)) // ["puzzle"]
+
+        const gifts3 = ['libro', 'ps5']
+        const materials3 = 'psli'
+
+        console.log(manufacture(gifts3, materials3)) // []
+    </script>
+</body>
+
+</html>

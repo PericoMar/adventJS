@@ -13,18 +13,27 @@
         //destructuring con el indexof de el inicio del parentesis y el final. (izq,der palind)
         function decode(message) {
             // Code here
-            
+            arrayMessage = message.split('');
+            while (arrayMessage.includes('(')) {
+                izq = arrayMessage.indexOf('(') + 1;
+                der = arrayMessage.lastIndexOf(')') - 1;
+                while (izq < der) {
+                    [arrayMessage[izq], arrayMessage[der]] = [arrayMessage[der], arrayMessage[izq]];
+                    izq++;
+                    der--;
+                }
+                arrayMessage.splice(arrayMessage.indexOf('('), 1);
+                arrayMessage.splice(arrayMessage.lastIndexOf(')'), 1);
+            }
+            return arrayMessage.join('');
         }
 
-        function girarTexto(strArray, izq, der) {
-            let strArray = str.split(''); // Convertir el string a un array de caracteres
-            while (izq < der) {
-                [strArray[izq], strArray[der]] = [strArray[der], strArray[izq]];
-                izq++;
-                der--;
-            }
-            return strArray.join(''); // Unir el array de caracteres de nuevo en un string
+        function girarTexto(arrayMessage, izq, der) {
+
         }
+
+        const b = decode('(olleh) (dlrow)!')
+        console.log(b) // hello world!
 
     </script>
 </body>

@@ -13,27 +13,45 @@
         //destructuring con el indexof de el inicio del parentesis y el final. (izq,der palind)
         function decode(message) {
             // Code here
-            arrayMessage = message.split('');
+            let izq;
+            let der;
+            let arrayMessage = message.split('');
+            let hayAnidacion;
             while (arrayMessage.includes('(')) {
-                izq = arrayMessage.indexOf('(') + 1;
-                der = arrayMessage.lastIndexOf(')') - 1;
+                hayAnidacion = arrayMessage.indexOf(')') >
+                arrayMessage.indexOf('(', arrayMessage.indexOf('(') + 1) && 
+                arrayMessage.indexOf('(', arrayMessage.indexOf('(') + 1) > 0;
+                if (hayAnidacion) {
+                    izq = arrayMessage.indexOf('(', arrayMessage.indexOf('(') + 1) + 1;
+                    der = arrayMessage.indexOf(')') - 1;
+                } else {
+                    izq = arrayMessage.indexOf('(') + 1;
+                    der = arrayMessage.indexOf(')') - 1;
+                }
                 while (izq < der) {
                     [arrayMessage[izq], arrayMessage[der]] = [arrayMessage[der], arrayMessage[izq]];
                     izq++;
                     der--;
                 }
-                arrayMessage.splice(arrayMessage.indexOf('('), 1);
-                arrayMessage.splice(arrayMessage.lastIndexOf(')'), 1);
+                if (hayAnidacion) {
+                    arrayMessage.splice(arrayMessage.indexOf('(', arrayMessage.indexOf('(') + 1), 1);
+                    arrayMessage.splice(arrayMessage.indexOf(')'), 1);
+                } else {
+                    arrayMessage.splice(arrayMessage.indexOf('('), 1);
+                    arrayMessage.splice(arrayMessage.indexOf(')'), 1);
+                }
             }
             return arrayMessage.join('');
         }
 
-        function girarTexto(arrayMessage, izq, der) {
-
-        }
+        const a = decode('hola (odnum)')
+        console.log(a) // hola mundo
 
         const b = decode('(olleh) (dlrow)!')
         console.log(b) // hello world!
+
+        const c = decode('sa(u(cla)atn)s')
+        console.log(c) // santaclaus
 
     </script>
 </body>

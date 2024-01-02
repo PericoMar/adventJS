@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function cyberReindeer(road, time) {
+            // Code here
+            let movement = [];
+            let i = road.indexOf("S")
+            while( i < 5 && i < time) {
+                roadArray = road.split('');
+                if (roadArray[i + 1] == '.') {
+                    [roadArray[i], roadArray[i + 1]] = [roadArray[i + 1], roadArray[i]];
+                }
+                road = roadArray.join('');
+                movement.push(road);
+                i = road.indexOf("S");
+            }
+            road = road.replaceAll("|", "*");
+            for (i = 5; i < time; i++) {
+                roadArray = road.split('');
+                if (roadArray[i + 1] == '.') {
+                    [roadArray[i], roadArray[i + 1]] = [roadArray[i + 1], roadArray[i]];
+                } else {
+                    roadArray[i+1] = roadArray[i];
+                    roadArray[i] = ".";
+                }
+                road = roadArray.join('');
+                movement.push(road);
+            }
+            return movement;
+        }
+
+        const road = 'S..|...|..'
+        const time = 10 // unidades de tiempo
+        const result = cyberReindeer(road, time)
+
+        console.log(result);
+    </script>
+</body>
+
+</html>

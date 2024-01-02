@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function maxDistance(movements) {
+            // Code here
+            let distance = 0;
+
+            let arrowsRight = movements.length - movements.replaceAll(">", '').length;
+            let arrowsLeft = movements.length - movements.replaceAll("<", '').length;
+            movements = movements.split('');
+            if (arrowsRight > arrowsLeft) {
+                for (i = 0; i < movements.length; i++) {
+                    if (movements[i] === '<') {
+                        distance--;
+                    } else {
+                        distance++;
+                    }
+                }
+            } else {
+                for (i = 0; i < movements.length; i++) {
+                    if (movements[i] === '>') {
+                        distance--;
+                    } else {
+                        distance++;
+                    }
+                }
+            }
+            return distance;
+        }
+
+        console.log(maxDistance(">***>"))
+    </script>
+</body>
+
+</html>

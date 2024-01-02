@@ -12,24 +12,43 @@
         function cyberReindeer(road, time) {
             // Code here
             let movement = [];
-            let i = road.indexOf("S")
-            while( i < 5 && i < time) {
+            let pos;
+            let timePassed = 1;
+            let passedBarrier;
+            let roadArray;
+            movement.push(road);
+            while (timePassed < 5 && timePassed < time) {
+                pos = road.indexOf("S");
                 roadArray = road.split('');
-                if (roadArray[i + 1] == '.') {
-                    [roadArray[i], roadArray[i + 1]] = [roadArray[i + 1], roadArray[i]];
+                if (roadArray[pos + 1] == '.') {
+                    [roadArray[pos], roadArray[pos + 1]] = [roadArray[pos + 1], roadArray[pos]];
                 }
                 road = roadArray.join('');
                 movement.push(road);
-                i = road.indexOf("S");
+                timePassed++;
             }
             road = road.replaceAll("|", "*");
-            for (i = 5; i < time; i++) {
+            for (timePassed = 5; timePassed < time; timePassed++) {
+                pos = road.indexOf("S");
                 roadArray = road.split('');
-                if (roadArray[i + 1] == '.') {
-                    [roadArray[i], roadArray[i + 1]] = [roadArray[i + 1], roadArray[i]];
+                if (passedBarrier) {
+                    roadArray[pos] = "*";
+                    passedBarrier = false;
+                    if (roadArray[pos + 1] == '.') {
+                        roadArray[pos + 1] = "S";
+                    } else if(roadArray[pos + 1] == '*'){
+                        passedBarrier = true;
+                        roadArray[pos + 1] = "S";
+                        roadArray[pos] = "*";
+                    }
                 } else {
-                    roadArray[i+1] = roadArray[i];
-                    roadArray[i] = ".";
+                    if (roadArray[pos + 1] == '.') {
+                        [roadArray[pos], roadArray[pos + 1]] = [roadArray[pos + 1], roadArray[pos]];
+                    } else if(roadArray[pos + 1] == '*') {
+                        passedBarrier = true;
+                        roadArray[pos + 1] = "S";
+                        roadArray[pos] = ".";
+                    }
                 }
                 road = roadArray.join('');
                 movement.push(road);
@@ -37,8 +56,8 @@
             return movement;
         }
 
-        const road = 'S..|...|..'
-        const time = 10 // unidades de tiempo
+        const road = 'S.|.|.|......|.||.........'
+        const time = road.length + 5; // unidades de tiempo
         const result = cyberReindeer(road, time)
 
         console.log(result);
